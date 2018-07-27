@@ -1,121 +1,135 @@
-<mat-sidenav-container class="boardgame-container">
-  <mat-sidenav mode="side" opened fixedInViewport fixedTopGap="64">
-    <div class="sidebar-container">
-      <form>
-        <div style="padding: 24px;" class="clearfix">
-          <button mat-icon-button (click)="onRunFilter()"><mat-icon>filter_list</mat-icon></button>
-          <b>Filter</b>
-          <span class="right-item">
-          <button mat-icon-button (click)="onRunFilter()">
-            <mat-icon>done</mat-icon>
-          </button>
-          <button mat-icon-button (click)="resetFilter()">
-            <mat-icon>cached</mat-icon>
-          </button>
-          </span>
-        </div>
-        <mat-accordion multi="true">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Title
-              </mat-panel-title>
+<div>
+  <mat-sidenav-container class="boardgame-container">
+    <mat-sidenav mode="side" opened fixedInViewport fixedTopGap="100">
+      <div class="sidebar-container">
+        <form>
+          <div style="padding: 24px;" class="clearfix">
+            <button mat-icon-button (click)="onRunFilter()">
+              <mat-icon>filter_list</mat-icon>
+            </button>
+            <b>Filter</b>
+            <span class="right-item">
+              <button mat-icon-button (click)="onRunFilter()">
+                <mat-icon>done</mat-icon>
+              </button>
+              <button mat-icon-button (click)="resetFilter()">
+                <mat-icon>cached</mat-icon>
+              </button>
+            </span>
+          </div>
+          <mat-accordion multi="true">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <b>Title</b>
+                </mat-panel-title>
+                <hr/>
+              </mat-expansion-panel-header>
+
+              <mat-form-field>
+                <input matInput placeholder="Game Tile" name="title" [(ngModel)]="filter.title">
+              </mat-form-field>
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div>
+                    <b>Players </b>
+                    <mat-icon>people</mat-icon>
+                  </div>
+                </mat-panel-title>
+                <hr/>
+              </mat-expansion-panel-header>
+
+
+              <b>Minimum Greater Than:</b>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="minplayers" [(ngModel)]="filter.minPlayersGreaterThan"></mat-slider>
+              {{filter.minPlayersGreaterThan}}
+              <br>
+              <b>And Less Than</b>
+              <br>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="minplayers" [(ngModel)]="filter.minPlayersLessThan"></mat-slider>
+              {{filter.minPlayersLessThan}}
               <hr/>
-            </mat-expansion-panel-header>
 
-            <mat-form-field>
-              <input matInput placeholder="Game Tile" name="title" [(ngModel)]="filter.title">
-            </mat-form-field>
+              <b>Maximum Greater Than:</b>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="maxplayers" [(ngModel)]="filter.maxPlayersGreaterThan"></mat-slider>
+              {{filter.maxPlayersGreaterThan}}
+              <br>
+              <b>And Less Than</b>
+              <br>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="maxplayers" [(ngModel)]="filter.maxPlayersLessThan"></mat-slider>
+              {{filter.maxPlayersLessThan}}
+            </mat-expansion-panel>
 
-          </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div>
+                    <b>Time To Play </b>
+                    <mat-icon>access_time</mat-icon>
+                  </div>
+                </mat-panel-title>
+                <hr/>
+              </mat-expansion-panel-header>
 
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Players
-              </mat-panel-title>
+
+              <b>Minimum Greater Than:</b>
+
+              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeGreaterThan"></mat-slider>
+              {{filter.minTimeGreaterThan}}
+              <br>
+              <b>And Less Than</b>
+              <br>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeLessThan"></mat-slider>
+              {{filter.minTimeLessThan}}
               <hr/>
-            </mat-expansion-panel-header>
+
+              <b>Maximum Greater Than:</b>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeGreaterThan"></mat-slider>
+              {{filter.maxTimeGreaterThan}}
+              <br>
+              <b>And Less Than</b>
+              <br>
+              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeLessThan"></mat-slider>
+              {{filter.maxTimeLessThan}}
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div>
+                    <b>Complexity
+                      <mat-icon>casino</mat-icon>
+                    </b>
+                  </div>
+                </mat-panel-title>
+                <hr/>
+              </mat-expansion-panel-header>
 
 
-            <b>Minimum Greater Than:</b>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="minplayers" [(ngModel)]="filter.minPlayersGreaterThan"></mat-slider>
-            {{filter.minPlayersGreaterThan}}
-            <br>
-            <b>And Less Than</b>
-            <br>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="minplayers" [(ngModel)]="filter.minPlayersLessThan"></mat-slider>
-            {{filter.minPlayersLessThan}}
-            <hr/>
+              <b>Greater Than:</b>
+              <br>
+              <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityGreaterThan"></mat-slider>
+              {{filter.complexityGreaterThan}}
+              <br>
+              <b>And Less Than</b>
+              <br>
+              <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityLessThan"></mat-slider>
+              {{filter.complexityLessThan}}
+            </mat-expansion-panel>
+          </mat-accordion>
+        </form>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content style="padding-left: 16px;">
+      <div *ngFor="let boardgame of filteredBoardGames" style="padding: 12px; display: inline-table;">
+        <app-boardgame [boardgameInfo]="boardgame"></app-boardgame>
+      </div>
+    </mat-sidenav-content>
 
-            <b>Maximum Greater Than:</b>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="maxplayers" [(ngModel)]="filter.maxPlayersGreaterThan"></mat-slider>
-            {{filter.maxPlayersGreaterThan}}
-            <br>
-            <b>And Less Than</b>
-            <br>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="5" name="maxplayers" [(ngModel)]="filter.maxPlayersLessThan"></mat-slider>
-            {{filter.maxPlayersLessThan}}
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Time To Play
-              </mat-panel-title>
-              <hr/>
-            </mat-expansion-panel-header>
-
-
-            <b>Minimum Greater Than:</b>
-
-            <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeGreaterThan"></mat-slider>
-            {{filter.minTimeGreaterThan}}
-            <br>
-            <b>And Less Than</b>
-            <br>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeLessThan"></mat-slider>
-            {{filter.minTimeLessThan}}
-            <hr/>
-
-            <b>Maximum Greater Than:</b>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeGreaterThan"></mat-slider>
-            {{filter.maxTimeGreaterThan}}
-            <br>
-            <b>And Less Than</b>
-            <br>
-            <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeLessThan"></mat-slider>
-            {{filter.maxTimeLessThan}}
-
-          </mat-expansion-panel>
-
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Complexity
-              </mat-panel-title>
-              <hr/>
-            </mat-expansion-panel-header>
-
-
-            <b>Greater Than:</b>
-            <br>  
-            <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityGreaterThan"></mat-slider>
-            {{filter.complexityGreaterThan}}
-            <br>
-            <b>And Less Than</b>
-            <br>
-            <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityLessThan"></mat-slider>
-            {{filter.complexityLessThan}}
-          </mat-expansion-panel>
-        </mat-accordion>
-      </form>
-    </div>
-  </mat-sidenav>
-  <mat-sidenav-content style="padding-left: 16px;">
-    <div *ngFor="let boardgame of filteredBoardGames" style="padding: 12px; display: inline-table;">
-      <app-boardgame [boardgameInfo]="boardgame"></app-boardgame>
-    </div>
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
+  </mat-sidenav-container>
+</div>

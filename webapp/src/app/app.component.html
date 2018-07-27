@@ -1,9 +1,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-<mat-card class="mat-card-header-menu">
-      <button mat-button disabled="true">Warps</button>
-      <button mat-button [routerLink]="['/home/']">Home</button>
-      <button mat-button [routerLink]="['/boardgames/']">Board Games</button>
+<mat-card class="menu-bar" >
+      <button mat-button disabled="true"><img src="../assets/WarpsLogoWhite.svg" style="width: 40px"/></button>
+      <button mat-button [routerLink]="['/home/']" class="button-text"><b>Home</b></button>
+      <button mat-button [routerLink]="['/boardgames/']" class="button-text"><b>Board Games</b></button>
 </mat-card>
 <router-outlet></router-outlet>
 
