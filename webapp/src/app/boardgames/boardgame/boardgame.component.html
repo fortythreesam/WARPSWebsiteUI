@@ -1,0 +1,24 @@
+<mat-card style="width: 230px; padding: 0;" layout-align>
+  <img mat-card-img src="{{boardgameInfo.thumbnail}}" height="230px" style="width: 230px;">
+
+  <mat-card-content class="common-spacing">
+    <b>{{boardgameInfo.title}}</b>
+    <hr/>
+    <div class="clearfix">
+      <mat-icon>people</mat-icon>
+      <b>: {{boardgameInfo.min_player_count}} - {{boardgameInfo.max_player_count}}</b>
+      <span class="right-item">
+        <mat-icon>access_time</mat-icon>
+        <b>: {{boardgameInfo.min_time}} - {{boardgameInfo.max_time}}</b>
+      </span>
+    </div>
+    <div class="clearfix">
+      <mat-icon>casino</mat-icon><b>: {{boardgameInfo.complexity}}</b>
+      <span class="right-item">
+        <button mat-icon-button>
+          <mat-icon>library_add</mat-icon>
+        </button>
+      </span>
+    </div>
+  </mat-card-content>
+</mat-card>

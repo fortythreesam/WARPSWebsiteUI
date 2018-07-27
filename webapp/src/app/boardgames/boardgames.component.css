@@ -1,0 +1,39 @@
+.boardgame-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: 12px;
+}
+
+.sidebar-container {
+    background-color: #f2f2f2;
+    width: 278px;
+}
+
+
+mat-icon {
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+mat-expansion-panel {
+    background-color: #f2f2f2;
+}
+
+hr {
+    border-color: rgba(0,0,0,.20);
+    margin: 4px;
+    margin-right: -16px;
+    margin-left: -16px;
+}
+
+.right-item {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
