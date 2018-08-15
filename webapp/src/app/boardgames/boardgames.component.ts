@@ -14,10 +14,13 @@ export class BoardgamesComponent implements OnInit {
   filteredBoardGames: Boardgame[];
   filter: FilterOptions;
   defaultFilter: FilterOptions;
+  numberOfPlayersMax: number;
+  noValueMessage = 'Disabled';
 
   constructor( private boardgamesService: BoardgamesService ) {
     this.boardgamesService.boardGames.subscribe( (newBoardgames: Boardgame[]) => {
       this.boardgames = newBoardgames;
+      this.numberOfPlayersMax = this.boardgamesService.maxPlayersCap;
       this.filteredBoardGames = this.boardgames;
       console.log(this.filteredBoardGames);
     });
@@ -27,29 +30,23 @@ export class BoardgamesComponent implements OnInit {
     this.boardgamesService.getBoardGames();
     this.filter = {
       title: '',
-      maxPlayersLessThan: 5,
-      maxPlayersGreaterThan: 0,
-      minPlayersLessThan: 5,
-      minPlayersGreaterThan: 0,
-      minTimeLessThan: 300,
+      numberOfPlayers: 0,
+      minTimeLessThan: 0,
       minTimeGreaterThan: 0,
-      maxTimeLessThan: 300,
+      maxTimeLessThan: 0,
       maxTimeGreaterThan: 0,
       complexityGreaterThan: 0,
-      complexityLessThan: 5
+      complexityLessThan: 0
     };
     this.defaultFilter = {
       title: '',
-      maxPlayersLessThan: 5,
-      maxPlayersGreaterThan: 0,
-      minPlayersLessThan: 5,
-      minPlayersGreaterThan: 0,
-      minTimeLessThan: 300,
+      numberOfPlayers: 0,
+      minTimeLessThan: 0,
       minTimeGreaterThan: 0,
-      maxTimeLessThan: 300,
+      maxTimeLessThan: 0,
       maxTimeGreaterThan: 0,
       complexityGreaterThan: 0,
-      complexityLessThan: 5
+      complexityLessThan: 0
     };
   }
 
@@ -66,17 +63,11 @@ export class BoardgamesComponent implements OnInit {
           continue;
         }
       }
-      if (this.runNumberFilter(this.filter.maxPlayersGreaterThan, this.defaultFilter.maxPlayersGreaterThan,
-                                this.filter.maxPlayersLessThan, this.defaultFilter.maxPlayersLessThan,
-                                boardgame.max_player_count)) {
-          this.filteredBoardGames.push(boardgame);
-          continue;
-      }
-      if (this.runNumberFilter(this.filter.minPlayersGreaterThan, this.defaultFilter.minPlayersGreaterThan,
-                                this.filter.minPlayersLessThan, this.defaultFilter.minPlayersLessThan,
-                                boardgame.min_player_count)) {
-          this.filteredBoardGames.push(boardgame);
-          continue;
+      if ( this.filter.numberOfPlayers !== this.defaultFilter.numberOfPlayers ) {
+        if ( this.filter.numberOfPlayers >= boardgame.min_player_count && this.filter.numberOfPlayers <= boardgame.max_player_count ) {
+            this.filteredBoardGames.push(boardgame);
+            continue;
+        }
       }
       if (this.runNumberFilter(this.filter.maxTimeGreaterThan, this.defaultFilter.maxTimeGreaterThan,
                                 this.filter.maxTimeLessThan, this.defaultFilter.maxTimeLessThan,
@@ -115,10 +106,7 @@ export class BoardgamesComponent implements OnInit {
 
   checkFilterDifferance() {
     return (this.filter.title === this.defaultFilter.title &&
-            this.filter.minPlayersLessThan === this.defaultFilter.minPlayersLessThan &&
-            this.filter.maxPlayersLessThan === this.defaultFilter.maxPlayersLessThan &&
-            this.filter.minPlayersGreaterThan === this.defaultFilter.minPlayersGreaterThan &&
-            this.filter.maxPlayersGreaterThan === this.defaultFilter.maxPlayersGreaterThan &&
+            this.filter.numberOfPlayers === this.defaultFilter.numberOfPlayers &&
             this.filter.minTimeLessThan === this.defaultFilter.minTimeLessThan &&
             this.filter.maxTimeLessThan === this.defaultFilter.maxTimeLessThan &&
             this.filter.minTimeGreaterThan === this.defaultFilter.maxTimeGreaterThan &&
