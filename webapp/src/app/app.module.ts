@@ -11,7 +11,8 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSliderModule
+  MatSliderModule,
+  MatTooltipModule
 } from '@angular/material';
 import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -21,6 +22,7 @@ import { BoardgameComponent } from './boardgames/boardgame/boardgame.component';
 import { HomeComponent } from './core/home/home.component';
 import { BoardgamesService } from './boardgames/boardgames.service';
 import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -56,7 +58,9 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSliderModule,
-    FormsModule
+    HttpClientModule,
+    FormsModule,
+    MatTooltipModule
   ],
   providers: [BoardgamesService],
   bootstrap: [AppComponent]

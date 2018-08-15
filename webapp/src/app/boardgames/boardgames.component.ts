@@ -16,7 +16,7 @@ export class BoardgamesComponent implements OnInit {
   defaultFilter: FilterOptions;
 
   constructor( private boardgamesService: BoardgamesService ) {
-    this.boardgamesService.mockBoardGames.subscribe( (newBoardgames: Boardgame[]) => {
+    this.boardgamesService.boardGames.subscribe( (newBoardgames: Boardgame[]) => {
       this.boardgames = newBoardgames;
       this.filteredBoardGames = this.boardgames;
       console.log(this.filteredBoardGames);
@@ -61,7 +61,7 @@ export class BoardgamesComponent implements OnInit {
     this.filteredBoardGames = [];
     for (const boardgame of this.boardgames) {
       if (this.filter.title !== this.defaultFilter.title) {
-        if (boardgame.title === this.filter.title) {
+        if (!boardgame.title.toLowerCase().search(this.filter.title.toLowerCase())) {
           this.filteredBoardGames.push(boardgame);
           continue;
         }

@@ -5,17 +5,27 @@
     <b>{{boardgameInfo.title}}</b>
     <hr/>
     <div class="clearfix">
-      <mat-icon>people</mat-icon>
-      <b>: {{boardgameInfo.min_player_count}} - {{boardgameInfo.max_player_count}}</b>
+      <mat-icon matTooltip="Number of Players" matTooltipPosition="above">people</mat-icon>
+      <span *ngIf="boardgameInfo.min_player_count === boardgameInfo.max_player_count">
+        <b>: {{boardgameInfo.min_player_count}}</b>
+      </span>
+      <span *ngIf="boardgameInfo.min_player_count !== boardgameInfo.max_player_count">
+        <b>: {{boardgameInfo.min_player_count}} - {{boardgameInfo.max_player_count}}</b>
+      </span>
       <span class="right-item">
-        <mat-icon>access_time</mat-icon>
-        <b>: {{boardgameInfo.min_time}} - {{boardgameInfo.max_time}}</b>
+        <mat-icon matTooltip="Playetime"  matTooltipPosition="above">access_time</mat-icon>
+        <span *ngIf="boardgameInfo.min_time === boardgameInfo.max_time">
+          <b>: {{boardgameInfo.min_time}}</b>
+        </span>
+        <span *ngIf="boardgameInfo.min_time !== boardgameInfo.max_time">
+          <b>: {{boardgameInfo.min_time}} - {{boardgameInfo.max_time}}</b>
+        </span>
       </span>
     </div>
     <div class="clearfix">
-      <mat-icon>casino</mat-icon><b>: {{boardgameInfo.complexity}}</b>
+      <mat-icon matTooltip="Complexity Weighting"  matTooltipPosition="below">casino</mat-icon><b>: {{boardgameInfo.complexity}}</b>
       <span class="right-item">
-        <button mat-icon-button>
+        <button mat-icon-button matTooltip="Request Game"  matTooltipPosition="below">
           <mat-icon>library_add</mat-icon>
         </button>
       </span>
