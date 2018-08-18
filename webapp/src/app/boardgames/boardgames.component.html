@@ -60,25 +60,15 @@
               </mat-expansion-panel-header>
 
 
-              <b>Minimum Greater Than:</b>
+              <b>Minimum Time:</b>
 
-              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeGreaterThan"></mat-slider>
-              {{filter.minTimeGreaterThan !== defaultFilter.minTimeGreaterThan ? filter.minTimeGreaterThan : noValueMessage}}
+              <mat-slider thumbLabel tickInterval="1" min="0" [max]="minTimeCap" step="5" name="mintime" [(ngModel)]="filter.minTime"></mat-slider>
+              {{filter.minTime !== defaultFilter.minTime ? filter.minTime : noValueMessage}}
               <br>
-              <b>And Less Than</b>
+              <b>Maximum Time:</b>
               <br>
-              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="mintime" [(ngModel)]="filter.minTimeLessThan"></mat-slider>
-              {{filter.minTimeLessThan !== defaultFilter.minTimeLessThan ? filter.minTimeLessThan : noValueMessage}}
-              <hr/>
-
-              <b>Maximum Greater Than:</b>
-              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeGreaterThan"></mat-slider>
-              {{filter.maxTimeGreaterThan !== defaultFilter.maxTimeGreaterThan ? filter.maxTimeGreaterThan : noValueMessage}}
-              <br>
-              <b>And Less Than</b>
-              <br>
-              <mat-slider thumbLabel tickInterval="1" min="0" max="300" step="1" name="maxtime" [(ngModel)]="filter.maxTimeLessThan"></mat-slider>
-              {{filter.maxTimeLessThan !== defaultFilter.maxTimeLessThan ? filter.maxTimeLessThan : noValueMessage}}
+              <mat-slider thumbLabel tickInterval="1" min="0" [max]="maxTimeCap" step="5" name="maxtime" [(ngModel)]="filter.maxTime"></mat-slider>
+              {{filter.maxTime !== defaultFilter.maxTime ? filter.maxTime : noValueMessage}}
 
             </mat-expansion-panel>
 
@@ -95,15 +85,15 @@
               </mat-expansion-panel-header>
 
 
-              <b>Greater Than:</b>
+              <b>Minimum complexity:</b>
               <br>
-              <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityGreaterThan"></mat-slider>
-              {{filter.complexityGreaterThan !== defaultFilter.complexityGreaterThan ? filter.complexityGreaterThan : noValueMessage}}
+              <mat-slider thumbLabel min="0" max="5" step="0.5" name="mincomplexity" [(ngModel)]="filter.minComplexity"></mat-slider>
+              {{filter.minComplexity !== defaultFilter.minComplexity ? filter.minComplexity : noValueMessage}}
               <br>
-              <b>And Less Than</b>
+              <b>Maximum Complexity:</b>
               <br>
-              <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.complexityLessThan"></mat-slider>
-              {{filter.complexityLessThan !== defaultFilter.complexityLessThan ? filter.complexityLessThan : noValueMessage}}
+              <mat-slider thumbLabel min="0" max="5" step="0.5" name="maxcomplexity" [(ngModel)]="filter.maxComplexity"></mat-slider>
+              {{filter.maxComplexity !== defaultFilter.maxComplexity ? filter.maxComplexity : noValueMessage}}
             </mat-expansion-panel>
           </mat-accordion>
         </form>

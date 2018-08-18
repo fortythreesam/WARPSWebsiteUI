@@ -15,12 +15,16 @@ export class BoardgamesComponent implements OnInit {
   filter: FilterOptions;
   defaultFilter: FilterOptions;
   numberOfPlayersMax: number;
+  minTimeCap: number;
+  maxTimeCap: number;
   noValueMessage = 'Disabled';
 
   constructor( private boardgamesService: BoardgamesService ) {
     this.boardgamesService.boardGames.subscribe( (newBoardgames: Boardgame[]) => {
       this.boardgames = newBoardgames;
-      this.numberOfPlayersMax = this.boardgamesService.maxPlayersCap;
+      this.numberOfPlayersMax = this.boardgamesService.playersCap;
+      this.minTimeCap = this.boardgamesService.minTimeCap;
+      this.maxTimeCap = this.boardgamesService.maxTimeCap;
       this.filteredBoardGames = this.boardgames;
       console.log(this.filteredBoardGames);
     });
@@ -31,22 +35,18 @@ export class BoardgamesComponent implements OnInit {
     this.filter = {
       title: '',
       numberOfPlayers: 0,
-      minTimeLessThan: 0,
-      minTimeGreaterThan: 0,
-      maxTimeLessThan: 0,
-      maxTimeGreaterThan: 0,
-      complexityGreaterThan: 0,
-      complexityLessThan: 0
+      minTime: 0,
+      maxTime: 0,
+      maxComplexity: 0,
+      minComplexity: 0
     };
     this.defaultFilter = {
       title: '',
       numberOfPlayers: 0,
-      minTimeLessThan: 0,
-      minTimeGreaterThan: 0,
-      maxTimeLessThan: 0,
-      maxTimeGreaterThan: 0,
-      complexityGreaterThan: 0,
-      complexityLessThan: 0
+      minTime: 0,
+      maxTime: 0,
+      maxComplexity: 0,
+      minComplexity: 0
     };
   }
 
@@ -57,35 +57,52 @@ export class BoardgamesComponent implements OnInit {
     }
     this.filteredBoardGames = [];
     for (const boardgame of this.boardgames) {
+      let addFilter = true;
       if (this.filter.title !== this.defaultFilter.title) {
         if (!boardgame.title.toLowerCase().search(this.filter.title.toLowerCase())) {
-          this.filteredBoardGames.push(boardgame);
+          addFilter = true;
+        } else {
           continue;
         }
       }
       if ( this.filter.numberOfPlayers !== this.defaultFilter.numberOfPlayers ) {
         if ( this.filter.numberOfPlayers >= boardgame.min_player_count && this.filter.numberOfPlayers <= boardgame.max_player_count ) {
-            this.filteredBoardGames.push(boardgame);
-            continue;
+          addFilter = true;
+        } else {
+          continue;
         }
       }
-      if (this.runNumberFilter(this.filter.maxTimeGreaterThan, this.defaultFilter.maxTimeGreaterThan,
-                                this.filter.maxTimeLessThan, this.defaultFilter.maxTimeLessThan,
-                                boardgame.max_time)) {
-          this.filteredBoardGames.push(boardgame);
+      if ( this.filter.minTime !== this.defaultFilter.minTime ) {
+        if ( boardgame.min_time >= this.filter.minTime ) {
+          addFilter = true;
+        } else {
           continue;
+        }
       }
-      if (this.runNumberFilter(this.filter.minTimeGreaterThan, this.defaultFilter.minTimeGreaterThan,
-                                this.filter.minTimeLessThan, this.defaultFilter.minTimeLessThan,
-                                boardgame.min_time)) {
-          this.filteredBoardGames.push(boardgame);
+      if ( this.filter.maxTime !== this.defaultFilter.maxTime ) {
+        if ( boardgame.max_time <= this.filter.maxTime ) {
+          addFilter = true;
+        } else {
           continue;
+        }
       }
-      if (this.runNumberFilter(this.filter.complexityGreaterThan, this.defaultFilter.complexityGreaterThan,
-                                this.filter.complexityLessThan, this.defaultFilter.complexityLessThan,
-                                boardgame.complexity)) {
-          this.filteredBoardGames.push(boardgame);
+      if ( this.filter.minComplexity !== this.defaultFilter.minComplexity ) {
+        if ( boardgame.complexity >= this.filter.minComplexity ) {
+          addFilter = true;
+        } else {
           continue;
+        }
+      }
+      if ( this.filter.maxComplexity !== this.defaultFilter.maxComplexity ) {
+        if ( boardgame.complexity <= this.filter.maxComplexity ) {
+          addFilter = true;
+        } else {
+          continue;
+        }
+      }
+      if (addFilter) {
+        this.filteredBoardGames.push(boardgame);
+        continue;
       }
     }
   }
@@ -107,12 +124,10 @@ export class BoardgamesComponent implements OnInit {
   checkFilterDifferance() {
     return (this.filter.title === this.defaultFilter.title &&
             this.filter.numberOfPlayers === this.defaultFilter.numberOfPlayers &&
-            this.filter.minTimeLessThan === this.defaultFilter.minTimeLessThan &&
-            this.filter.maxTimeLessThan === this.defaultFilter.maxTimeLessThan &&
-            this.filter.minTimeGreaterThan === this.defaultFilter.maxTimeGreaterThan &&
-            this.filter.maxTimeGreaterThan === this.defaultFilter.maxTimeGreaterThan &&
-            this.filter.complexityLessThan === this.defaultFilter.complexityLessThan &&
-            this.filter.complexityGreaterThan === this.defaultFilter.complexityGreaterThan );
+            this.filter.minTime === this.defaultFilter.minTime &&
+            this.filter.maxTime === this.defaultFilter.maxTime &&
+            this.filter.minComplexity === this.defaultFilter.minComplexity &&
+            this.filter.maxComplexity === this.defaultFilter.maxComplexity );
   }
 
 }
