@@ -14,7 +14,7 @@ export class BoardgamesService {
   constructor( private http: HttpClient) {  }
 
   getBoardGames() {
-    this.http.get<Boardgame[]>('http://127.0.0.1:8000/boardgames/')
+    this.http.get<Boardgame[]>('http://43sam.netsoc.co:1194/boardgames/')
       .subscribe((res: Boardgame[]) => {
         for (const boardgame of res) {
             if (boardgame.max_player_count > this.playersCap) {

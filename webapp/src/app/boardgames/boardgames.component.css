@@ -37,3 +37,7 @@ hr {
     clear: both;
     display: table;
 }
+
+.mat-drawer-backdrop.mat-drawer-shown {
+    visibility: hidden !important;
+}

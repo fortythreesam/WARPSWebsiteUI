@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BoardgamesService } from './boardgames.service';
 import { Boardgame } from '../models/boardgame';
 import { FilterOptions } from './filter-options.model';
+import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-boardgames',
   templateUrl: './boardgames.component.html',
-  styleUrls: ['./boardgames.component.css']
+  styleUrls: ['./boardgames.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
-export class BoardgamesComponent implements OnInit {
+export class BoardgamesComponent implements OnDestroy, OnInit  {
 
-  boardgames: Boardgame[];
+  boardgames: Boardgame[] = [];
   filteredBoardGames: Boardgame[];
   filter: FilterOptions;
   defaultFilter: FilterOptions;
@@ -18,8 +20,10 @@ export class BoardgamesComponent implements OnInit {
   minTimeCap: number;
   maxTimeCap: number;
   noValueMessage = 'Disabled';
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  constructor( private boardgamesService: BoardgamesService ) {
+  constructor( private boardgamesService: BoardgamesService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher ) {
     this.boardgamesService.boardGames.subscribe( (newBoardgames: Boardgame[]) => {
       this.boardgames = newBoardgames;
       this.numberOfPlayersMax = this.boardgamesService.playersCap;
@@ -28,6 +32,10 @@ export class BoardgamesComponent implements OnInit {
       this.filteredBoardGames = this.boardgames;
       console.log(this.filteredBoardGames);
     });
+
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
    }
 
   ngOnInit() {
@@ -48,6 +56,10 @@ export class BoardgamesComponent implements OnInit {
       maxComplexity: 0,
       minComplexity: 0
     };
+  }
+
+  ngOnDestroy() {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   onRunFilter() {

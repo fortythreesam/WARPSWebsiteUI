@@ -1,6 +1,10 @@
-<div>
+
+
+<div [class.example-is-mobile]="mobileQuery.matches">
+  <button *ngIf="mobileQuery.matches" mat-icon-button (click)="snav.toggle()" style="position:fixed; color: black; margin-top: 51px; z-index:10;"><mat-icon>menu</mat-icon></button>  
   <mat-sidenav-container class="boardgame-container">
-    <mat-sidenav mode="side" opened fixedInViewport fixedTopGap="100">
+    <mat-sidenav #snav  [mode]="mobileQuery.matches ? 'over' : 'side'"
+                  opened fixedInViewport fixedTopGap="100">
       <div class="sidebar-container">
         <form>
           <div style="padding: 24px;" class="clearfix">
@@ -100,6 +104,9 @@
       </div>
     </mat-sidenav>
     <mat-sidenav-content style="padding-left: 16px;">
+      <div *ngIf="boardgames?.length == 0">
+        <h1>Loading...</h1>
+      </div>
       <div *ngFor="let boardgame of filteredBoardGames" style="padding: 12px; display: inline-table;">
         <app-boardgame [boardgameInfo]="boardgame"></app-boardgame>
       </div>
